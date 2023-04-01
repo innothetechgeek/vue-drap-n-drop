@@ -1,7 +1,52 @@
-<script setup>
+<script>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head } from '@inertiajs/vue3';
 import Accodion from '@/Components/Accodion.vue'
+import { reactive, ref,onMounted,onActivated} from 'vue';
+
+export default {
+
+
+    data(){
+        return {
+           pages: [],
+           activePage: 1,
+           page_sections: '',
+        }
+    },
+
+    mounted(){
+        this.getPages();
+        this.getPageSections();
+    },
+
+    methods:{
+
+        getPages(){
+
+            axios.get('pages').then(response =>{
+                this.pages = response.data;
+              //  console.log(pages);
+            })
+        }, 
+
+        getPageSections(){
+           
+            axios.get('page/sections/'+this.activePage).then(response =>{
+                this.page_sections = response.data;
+            })
+
+        }
+        
+    },
+
+    components:{
+        AuthenticatedLayout,
+        Head,
+        Accodion
+    }
+}
+
 </script>
 
 <template>
@@ -30,9 +75,10 @@ import Accodion from '@/Components/Accodion.vue'
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <div class="form-group p-card-body">
+                                            {{ pages.length }}
                                         <label>Select</label>
-                                            <select class="form-control">
-                                                <option>Home</option>
+                                            <select @change="getPageSections()" v-model="activePage" class="form-control" >
+                                                <option :value="page.id" v-for="(page,index) in pages" :key="page.id">{{ page.name }}</option>
                                             </select>
                                         </div>
                                     </div>
@@ -42,7 +88,7 @@ import Accodion from '@/Components/Accodion.vue'
                     </div>
                     <div class="col-sm-9" >
                         <div class="card page-sections">
-                            <Accodion  v-for="index in 5" :key="index" :section_id="index" isActive="active"> </Accodion>
+                            <Accodion  v-for="(section,index) in page_sections" :key="section.id" :section="section" :section_id="section.id" isActive="active"> </Accodion>
                         </div>
                     </div>
                 </div>

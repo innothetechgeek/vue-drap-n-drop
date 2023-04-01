@@ -5,6 +5,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SectionsController;
 use Inertia\Inertia;
+use App\Http\Controllers\PageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,6 +39,9 @@ Route::middleware('auth')->group(function () {
 
 Route::post('sections/uploadsliderimage',[SectionsController::class,'uploadSliderImages'])->name('upload-slider-images');
 Route::get('sections/slides/{section_id}',[SectionsController::class,'getSectionSlides'])->name('section.slides');
+
+Route::get('pages',[PageController::class,'getPages']);
+Route::get('page/sections/{pageid}',[PageController::class,'getSections']);
 
 
 require __DIR__.'/auth.php';

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <button @click="toggleAccordion(section_id);" class="accordion" :class="{active:isActive}">Section 1</button>
+        <button @click="toggleAccordion(section_id);" class="accordion" :class="{active:isActive}">{{ section.name }}</button>
         <div :id="'panel_' + section_id"  class="panel">           
             <Uploader v-if="saved.length != 0" 
             :media="saved"   
@@ -32,7 +32,7 @@ import Uploader from "vue-media-upload";
               
             }
         },
-        props: ['isActive','section_id'],
+        props: ['isActive','section_id','section'],
          methods:{
 
             toggleAccordion(section_id){
