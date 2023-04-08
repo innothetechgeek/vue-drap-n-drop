@@ -20,4 +20,18 @@ class PageController extends Controller
        return PageSection::where('page_id',$id)->get();
 
     }
+
+    public function addSection(Request $request, $id){
+
+        $section = new PageSection;
+        $section->name = $request->name;
+        $section->content_type = $request->contentType;
+        $section->page_id = $id;
+        $section->save();
+
+        return redirect()->route('dashboard');
+
+    }
+
+   
 }

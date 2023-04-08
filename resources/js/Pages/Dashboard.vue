@@ -3,6 +3,7 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head } from '@inertiajs/vue3';
 import Accodion from '@/Components/Accodion.vue'
 import { reactive, ref,onMounted,onActivated} from 'vue';
+import AddNewSectionModal from '@/Components/Modals/AddSection.vue';
 
 export default {
 
@@ -12,6 +13,8 @@ export default {
            pages: [],
            activePage: 1,
            page_sections: '',
+           showAddCourseForm: false,
+           showAddNewSectionForm: false
         }
     },
 
@@ -36,6 +39,18 @@ export default {
                 this.page_sections = response.data;
             })
 
+        },
+        showModal() {
+            this.$refs['my-modal'].show()
+        },
+        addCourse(){
+
+            this.showAddCourseForm = true;
+        },
+        addNewSection(){
+            alert('about to show add new section Form');
+            this.showAddNewSectionForm = !this.showAddNewSectionForm;
+            alert( this.showAddNewSectionForm );
         }
         
     },
@@ -43,16 +58,17 @@ export default {
     components:{
         AuthenticatedLayout,
         Head,
-        Accodion
+        Accodion,
+        AddNewSectionModal,
     }
 }
 
 </script>
 
 <template>
-    <Head title="Dashboard" />
+    <Head title="Dashboard"  />
 
-    <AuthenticatedLayout>
+    <AuthenticatedLayout :key="showAddCourseForm">
         <div class="content-wrapper">
             <!-- Main content -->
             <div class="content">
@@ -89,17 +105,26 @@ export default {
                     <div class="col-sm-9" >
                         <div class="card page-sections">
                             <Accodion  v-for="(section,index) in page_sections" :key="section.id" :section="section" :section_id="section.id" isActive="active"> </Accodion>
+                            <div class="section-footer">
+                                <button @click="addNewSection"  data-toggle="modal" data-target="#exampleModal" class="btn btn-success">Add New Course</button>
+                            </div>
+                            <AddNewSectionModal v-if="showAddNewSectionForm" :pageId="activePage" @addNewSection="addNewSection"  />
                         </div>
                     </div>
                 </div>
             </div>
             </div>
-
             </div>
     </AuthenticatedLayout>
 </template>
 
 <style scoped>
+
+    .section-footer{
+        display:flex;
+        justify-content: flex-end;
+    }
+
     .card {
         position: relative;
         display: -ms-flexbox;

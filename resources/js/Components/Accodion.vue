@@ -1,22 +1,32 @@
 <template>
     <div>
-        <button @click="toggleAccordion(section_id);" class="accordion" :class="{active:isActive}">{{ section.name }}</button>
+        <button @click="toggleAccordion(section_id);" class="accordion" :class="{active:isActive}+' section-title'">
+            {{ section.name }}
+            <!-- test -->
+            <font-awesome-icon icon="fa-solid fa-plus" />
+        </button>
         <div :id="'panel_' + section_id"  class="panel">           
             <Uploader v-if="saved.length != 0" 
             :media="saved"   
             server="sections/uploadsliderimage"
             location="storage/sliders/1/slides"
             class="uploader"/>
+
+            <button @click="AddCourse" class="btn btn-primary">Add Course</button>
+          
         </div>
+        <AddCourseModal :sectionId="section_id" v-if="showAddCourseForm" />
     </div>
 </template>
 
 <script>
 import Uploader from "vue-media-upload";
+import AddCourseModal from '@/Components/Modals/AddCourse.vue';
     export default {
 
         components: {
             Uploader,
+            AddCourseModal,
         },
 
         mounted(){
@@ -29,6 +39,8 @@ import Uploader from "vue-media-upload";
                 saved: [
                   
                 ],
+                colapseIcon: 'plus',
+                showAddCourseForm: false,
               
             }
         },
@@ -40,10 +52,15 @@ import Uploader from "vue-media-upload";
                 var acc = document.getElementsByClassName("accordion");              
                     /* Toggle between hiding and showing the active panel */
                 var panel =  document.getElementById("panel_"+section_id);
+
                 if (panel.style.display === "block") {
+
                     panel.style.display = "none";
+
                 }else {
+
                     panel.style.display = "block";
+
                 }                 
                 
                 this.active_section_id = section_id;
@@ -63,6 +80,9 @@ import Uploader from "vue-media-upload";
                     console.log('error : ', error);
                 });
 
+            },
+            AddCourse(){
+                this.showAddCourseForm = true;
             }
         }
     }
@@ -72,6 +92,12 @@ import Uploader from "vue-media-upload";
 :deep(.gallery[data-v-446c7bb4]) {
    border:none !important;
    border:none !important;
+}
+
+.section-footer button{
+
+    margin-bottom:15px;
+
 }
 
 .mu-plusbox{
@@ -145,6 +171,12 @@ import Uploader from "vue-media-upload";
   -ms-flex-pack: justify;
   justify-content: space-between;
   flex-wrap:wrap;
+}
+
+.section-title{
+    font-weight: bold;
+    display:flex;
+    justify-content:space-between;
 }
 
 .slider-images{

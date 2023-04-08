@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 Use App\Models\Slide;
+use App\Models\Course;
 
 class SectionsController extends Controller
 {
@@ -52,6 +53,31 @@ class SectionsController extends Controller
 
         return $images;
 
+    }
+
+    public function addCourse(Request $request,$id){
+
+       $course = new Course;
+        
+       $course->title = $request->title;
+       $course->number_of_students = $request->number_of_students;
+       $course->rating = $request->rating;
+       $course->price = $request->price;
+       $course->level = $request->level;
+       $course->section_id = $id;
+       $course->save();
+       
+       $image = $request->image;
+
+       if(!empty($image)){
+
+            $image_name = $image->getClientOriginalName();
+            $path = $image->storeAs("public/course_images/course$id/",$image_name);
+            $course->image = $image_name;
+            $course->save();
+       }
+
+      
     }
 
 }

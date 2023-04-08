@@ -8,6 +8,7 @@ import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
 import { Link } from '@inertiajs/vue3';
 
 const showingNavigationDropdown = ref(false);
+
 </script>
 
 
@@ -276,5 +277,10 @@ const showingNavigationDropdown = ref(false);
 
 <!--main content end-->
 </section>
+   
 </template>
+
+<style scoped>
+  
+</style>
 
