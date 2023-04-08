@@ -22,7 +22,6 @@
     const handleUpload = (event) => {
 
          let image = event.target.files[0];
-        alert( image );
         form.image = image;
     }
 
@@ -79,8 +78,9 @@
   #customModal{
     display:flex;
     position: fixed;
-    top:10%;
+    top:3%;
     justify-content:center;
+    z-index: 15000;
   }
   ::v-deep .modal-dialog{
       

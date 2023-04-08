@@ -40,6 +40,7 @@ Route::middleware('auth')->group(function () {
 Route::post('sections/uploadsliderimage',[SectionsController::class,'uploadSliderImages'])->name('upload-slider-images');
 Route::get('sections/slides/{section_id}',[SectionsController::class,'getSectionSlides'])->name('section.slides');
 Route::post('sections/addcourse/{section_id}',[SectionsController::class,'addCourse'])->name('section.addcourse');
+Route::get('section/courses/{section_id}',[SectionsController::class,'getCourses'])->name('section.getcourses');
 
 Route::get('pages',[PageController::class,'getPages']);
 Route::post('pages/addsection/{pageid}',[PageController::class,'addSection'])->name('page.addsection');

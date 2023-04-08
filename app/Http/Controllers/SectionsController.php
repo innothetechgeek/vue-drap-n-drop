@@ -80,4 +80,10 @@ class SectionsController extends Controller
       
     }
 
+    public function getCourses($section_id){
+
+        return Course::where('section_id',$section_id)->get();
+        
+    }
+
 }

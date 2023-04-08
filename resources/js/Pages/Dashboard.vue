@@ -104,7 +104,7 @@ export default {
                     </div>
                     <div class="col-sm-9" >
                         <div class="card page-sections">
-                            <Accodion  v-for="(section,index) in page_sections" :key="section.id" :section="section" :section_id="section.id" isActive="active"> </Accodion>
+                            <Accodion  v-for="(section,index) in page_sections" :key="section.id" :section="section" :section_id="section.id" :contentType="section.content_type"  isActive="active"> </Accodion>
                             <div class="section-footer">
                                 <button @click="addNewSection"  data-toggle="modal" data-target="#exampleModal" class="btn btn-success">Add New Course</button>
                             </div>

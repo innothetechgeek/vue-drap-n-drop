@@ -5,28 +5,31 @@
             <!-- test -->
             <font-awesome-icon icon="fa-solid fa-plus" />
         </button>
-        <div :id="'panel_' + section_id"  class="panel">           
-            <Uploader v-if="saved.length != 0" 
-            :media="saved"   
-            server="sections/uploadsliderimage"
-            location="storage/sliders/1/slides"
-            class="uploader"/>
+        <div :id="'panel_' + section_id"  class="panel">  
 
-            <button @click="AddCourse" class="btn btn-primary">Add Course</button>
-          
+            <Uploader v-if="saved.length != 0 && contentType == 'slider'"
+                :media="saved"   
+                server="sections/uploadsliderimage"
+                location="storage/sliders/1/slides"
+                class="uploader"
+            />
+
+            <Courses :sectionId="section_id" />
+        
         </div>
-        <AddCourseModal :sectionId="section_id" v-if="showAddCourseForm" />
+       
     </div>
 </template>
 
 <script>
 import Uploader from "vue-media-upload";
-import AddCourseModal from '@/Components/Modals/AddCourse.vue';
+import Courses from '@/Components/Courses.vue';
+
     export default {
 
         components: {
             Uploader,
-            AddCourseModal,
+            Courses
         },
 
         mounted(){
@@ -44,7 +47,7 @@ import AddCourseModal from '@/Components/Modals/AddCourse.vue';
               
             }
         },
-        props: ['isActive','section_id','section'],
+        props: ['isActive','section_id','section',"contentType"],
          methods:{
 
             toggleAccordion(section_id){

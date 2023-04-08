@@ -17,12 +17,13 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 /* import specific icons */
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
+import { faTrash } from '@fortawesome/free-solid-svg-icons'
+import { faPencil } from '@fortawesome/free-solid-svg-icons'
 
 /* add icons to the library */
 library.add(faPlus)
-
-
-  
+library.add(faTrash)
+library.add(faPencil)
 
 const appName = window.document.getElementsByTagName('title')[0]?.innerText || 'Laravel';
 
