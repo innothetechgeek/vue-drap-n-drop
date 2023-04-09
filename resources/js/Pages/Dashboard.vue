@@ -9,13 +9,13 @@ export default {
 
 
     data(){
-        return {
+        return reactive({
            pages: [],
            activePage: 1,
-           page_sections: '',
+           page_sections: [],
            showAddCourseForm: false,
            showAddNewSectionForm: false
-        }
+        })
     },
 
     mounted(){
@@ -34,7 +34,7 @@ export default {
         }, 
 
         getPageSections(){
-           
+
             axios.get('page/sections/'+this.activePage).then(response =>{
                 this.page_sections = response.data;
             })
@@ -47,11 +47,11 @@ export default {
 
             this.showAddCourseForm = true;
         },
-        addNewSection(){
-            alert('about to show add new section Form');
+        toggleAddSectionModal(){
+         
             this.showAddNewSectionForm = !this.showAddNewSectionForm;
-            alert( this.showAddNewSectionForm );
-        }
+           
+        },
         
     },
 
@@ -72,49 +72,52 @@ export default {
         <div class="content-wrapper">
             <!-- Main content -->
             <div class="content">
-            <div class="container-fluid">
-                <div class="row table-agile-info">
-                    <div class="col-sm-3">
-                        <div class="card page-selector">
-                            <div class="card-header border-0">
-                                <h3 class="card-title">Select a Page</h3>
-                                <div class="card-tools">
-                                <a href="#" class="btn btn-tool btn-sm">
-                                    <i class="fas fa-download"></i>
-                                </a>
-                                <a href="#" class="btn btn-tool btn-sm">
-                                    <i class="fas fa-bars"></i>
-                                </a>
+                <div class="container-fluid">
+                    <div class="row table-agile-info">
+                        <div class="col-sm-3">
+                            <div class="card page-selector">
+                                <div class="card-header border-0">
+                                    <h3 class="card-title">Select a Page</h3>
+                                    <div class="card-tools">
+                                    <a href="#" class="btn btn-tool btn-sm">
+                                        <i class="fas fa-download"></i>
+                                    </a>
+                                    <a href="#" class="btn btn-tool btn-sm">
+                                        <i class="fas fa-bars"></i>
+                                    </a>
+                                    </div>
+                                </div>
+                                <div class="card-body table-responsive">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="form-group p-card-body">
+                                                {{ pages.length }}
+                                            <label>Select</label>
+                                                <select @change="getPageSections()" v-model="activePage" class="form-control" >
+                                                    <option :value="page.id" v-for="(page,index) in pages" :key="page.id">{{ page.name }}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>                                   
                                 </div>
                             </div>
-                            <div class="card-body table-responsive">
-                                <div class="row">
-                                    <div class="col-sm-12">
-                                        <div class="form-group p-card-body">
-                                            {{ pages.length }}
-                                        <label>Select</label>
-                                            <select @change="getPageSections()" v-model="activePage" class="form-control" >
-                                                <option :value="page.id" v-for="(page,index) in pages" :key="page.id">{{ page.name }}</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>                                   
-                            </div>
                         </div>
-                    </div>
-                    <div class="col-sm-9" >
-                        <div class="card page-sections">
-                            <Accodion  v-for="(section,index) in page_sections" :key="section.id" :section="section" :section_id="section.id" :contentType="section.content_type"  isActive="active"> </Accodion>
-                            <div class="section-footer">
-                                <button @click="addNewSection"  data-toggle="modal" data-target="#exampleModal" class="btn btn-success">Add New Course</button>
+                        <div class="col-sm-9" >
+                            <div class="card page-sections">
+                                <Accodion @getPageSections="getPageSections"  v-for="(section,index) in page_sections" :key="section.id" :section="section" :section_id="section.id" :contentType="section.content_type"  isActive="active"> </Accodion>
+                                
+                                <div class="section-footer">
+                                    <button @click="toggleAddSectionModal"  data-toggle="modal" data-target="#exampleModal" class="btn btn-success">Add New Course</button>
+                                </div>
+
+                                <AddNewSectionModal @getPageSections="getPageSections" v-if="showAddNewSectionForm" :pageId="activePage" @toggleAddSectionModal="toggleAddSectionModal"  /> 
+
                             </div>
-                            <AddNewSectionModal v-if="showAddNewSectionForm" :pageId="activePage" @addNewSection="addNewSection"  />
                         </div>
                     </div>
                 </div>
             </div>
-            </div>
-            </div>
+        </div>
     </AuthenticatedLayout>
 </template>
 

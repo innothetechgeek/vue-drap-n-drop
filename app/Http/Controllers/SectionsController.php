@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 Use App\Models\Slide;
 use App\Models\Course;
+Use App\Models\PageSection;
 
 class SectionsController extends Controller
 {
@@ -84,6 +85,15 @@ class SectionsController extends Controller
 
         return Course::where('section_id',$section_id)->get();
         
+    }
+
+    public function deleteSection($id){
+
+        $section = PageSection::find($id);
+        $section->delete();
+
+      //  return redirect()->route('dashboard');
+
     }
 
 }

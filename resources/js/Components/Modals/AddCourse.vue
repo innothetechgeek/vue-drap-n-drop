@@ -5,6 +5,7 @@
         sectionId: Number
     })
 
+    const emits = defineEmits(["closeModal"]);
 
     const form = useForm({
 
@@ -16,8 +17,7 @@
         price:null,
 
     })
-
-    //alert(props.sectionId);
+    
 
     const handleUpload = (event) => {
 
@@ -31,6 +31,12 @@
 
     }
 
+    const closeModal = () =>{
+
+        emits("closeModal");
+
+    }
+
 </script>
 <template>
     <div id="customModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
@@ -38,7 +44,7 @@
         <div class="modal-dialog" role="document">
            
             <div class="modal-content">
-                <span class="close-model" aria-hidden="true">&times;</span>
+                <span @click="closeModal()" class="close-model" aria-hidden="true">&times;</span>
                 <form @submit.prevent class="signup-form">
                     <div class="form-group mb-2">
                         <label for="name">Title</label>
@@ -65,7 +71,7 @@
                         <input type="file" @change="handleUpload($event)" class="form-control" id="inputEmail3">
                     </div>
                     <div class="form-group mb-2">
-                        <button @click="submit" class="form-control btn btn-primary rounded submit px-3">Add Course</button>
+                        <button @click="submit(),getPageSections()" class="form-control btn btn-primary rounded submit px-3">Add Course</button>
                     </div>
                 </form>
             </div>

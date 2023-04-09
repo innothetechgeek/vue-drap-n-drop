@@ -25,7 +25,7 @@
             <!-- and so on... -->
         </tbody>
     </table>
-    <AddCourseModal :sectionId="props.sectionId" v-if="showAddCourseForm" />
+    <AddCourseModal  @closeModal="closeModal" :sectionId="props.sectionId" v-if="showAddCourseForm" />
     <button @click="AddCourse" class="btn btn-primary">Add Course</button>
 
 </template>
@@ -60,6 +60,12 @@
         getCourses(), 5000 })
 
     })
+
+    const closeModal = () => {
+
+        showAddCourseForm.value = false;
+
+    }
     
 
 </script>

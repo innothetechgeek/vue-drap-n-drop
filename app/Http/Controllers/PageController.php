@@ -29,7 +29,7 @@ class PageController extends Controller
         $section->page_id = $id;
         $section->save();
 
-        return redirect()->route('dashboard');
+     //   return redirect()->route('dashboard');
 
     }
 

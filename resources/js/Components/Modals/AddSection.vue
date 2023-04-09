@@ -1,27 +1,68 @@
 <script setup>
 
 import { useForm } from "@inertiajs/vue3";
+import { defineEmits } from 'vue';
 
-const emits = defineEmits("addNewSection");
+const emits = defineEmits(["toggleAddSectionModal","getPageSections"]);
 
-let form = useForm({
+let data = {
     
     name: null, 
     contentType: null,   
 
-})
+}
+
+//console.log(emits('getPageSections'));
 
 const props = defineProps({
     pageId: Number,
 })
 
-const submit = () => {
+
+
+
+const getPageSections = () => {
+
+    setTimeout(() => {
+                
     
-    emits("addNewSection");
-    form.post(route('page.addsection',{id: props.pageId}));
+        alert('After emit');
+
+
+    }, 2000);
+
    
+
 }
 
+const submit = async() => {
+    
+   
+   // emits("getPageSections");
+
+   const response = await axios.post(route('page.addsection',{id:props.pageId}),data);
+  
+
+       //getPageSections();
+       emits('getPageSections');
+       emits("toggleAddSectionModal");
+        //const locaEemits = defineEmits(["toggleAddSectionModal","getPageSections"]);
+        //locaEemits("getPageSections");
+        //alert('hello world');
+
+  
+}
+
+const getSections = () => {
+
+    
+
+}
+
+const toggleAddSectionModal = () => {
+
+    emits("toggleAddSectionModal");
+}
 </script>
 <template>
     <div id="customModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
@@ -29,22 +70,22 @@ const submit = () => {
         <div class="modal-dialog" role="document">
            
             <div class="modal-content">
-                <span class="close-model" aria-hidden="true">&times;</span>
+                <span @click="toggleAddSectionModal" class="close-model" aria-hidden="true">&times;</span>
                 <form @submit.prevent class="signup-form">
                     <div class="form-group mb-2">
                         <label for="name">Section Title</label>
-                        <input v-model="form.name" type="text" class="form-control" placeholder="John Doe">
+                        <input v-model="data.name" type="text" class="form-control" placeholder="John Doe">
                     </div>
                     <div class="form-group mb-2">
                         <label for="name">Content Type</label>
-                        <select v-model="form.contentType" class="form-control">
+                        <select v-model="data.contentType" class="form-control">
                             <option>Static Content</option>
                             <option>Courses</option>
                             <option>Slider</option>
                         </select>
                     </div>
                     <div class="form-group mb-2">
-                        <button @click="submit" class="form-control btn btn-primary rounded submit px-3">Add Section</button>
+                        <button @click="submit()" class="form-control btn btn-primary rounded submit px-3">Add Section</button>
                     </div>
                 </form>
             </div>
@@ -59,7 +100,7 @@ const submit = () => {
     justify-content:center;
   }
   ::v-deep .modal-dialog{
-        position: absolute;
+        position: fixed;
         top: 20%;
          max-width: 450px;
          margin: 1.75rem auto !important;

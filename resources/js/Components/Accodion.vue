@@ -14,8 +14,18 @@
                 class="uploader"
             />
 
-            <Courses :sectionId="section_id" />
-        
+            <Courses :sectionId="section_id" v-if="contentType == 'courses'"/>
+            
+            <div class="panel-footer">
+                <div class="right-col">
+
+                </div>
+                <div class="left-col">
+                    <span @click="deleteSection(),getPageSections()" class="delete-section">Delete section</span>&nbsp;&nbsp;
+                    <span class="delete-section">Deactivate section</span>
+                </div>
+            </div>
+
         </div>
        
     </div>
@@ -48,6 +58,7 @@ import Courses from '@/Components/Courses.vue';
             }
         },
         props: ['isActive','section_id','section',"contentType"],
+        emits: ['getPageSections'],
          methods:{
 
             toggleAccordion(section_id){
@@ -74,10 +85,8 @@ import Courses from '@/Components/Courses.vue';
             getSlides(sectionId){
 
                 axios.get('sections/slides/1').then(response => {
-                       // this.post = response.data.post
-                       // this.post.media = {list: [], saved: [], added:[], removed:[]}
-                        this.saved = response.data
-                       // this.hasResponse = true
+                      
+                    this.saved = response.data
 
                 }).catch(function (error) {
                     console.log('error : ', error);
@@ -86,12 +95,38 @@ import Courses from '@/Components/Courses.vue';
             },
             AddCourse(){
                 this.showAddCourseForm = true;
+            },
+
+            getPageSections(){
+
+                setTimeout(() => {
+                        this.$emit('getPageSections');
+                }, 2000);
+
+            },
+
+            deleteSection(){
+                
+                axios.get(route('section.delete',{id: this.section_id})).then(response => {
+
+                }).catch(function (error) {
+                    console.log('error : ', error);
+                });
+
             }
         }
     }
 </script>
 
 <style scoped>
+
+.panel-footer{
+    margin-top:25px;
+    border-top: 1px solid #F0BCB4;
+    padding:15px;
+    display:flex;
+    justify-content: space-between;
+}
 :deep(.gallery[data-v-446c7bb4]) {
    border:none !important;
    border:none !important;

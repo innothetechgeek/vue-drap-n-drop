@@ -41,6 +41,7 @@ Route::post('sections/uploadsliderimage',[SectionsController::class,'uploadSlide
 Route::get('sections/slides/{section_id}',[SectionsController::class,'getSectionSlides'])->name('section.slides');
 Route::post('sections/addcourse/{section_id}',[SectionsController::class,'addCourse'])->name('section.addcourse');
 Route::get('section/courses/{section_id}',[SectionsController::class,'getCourses'])->name('section.getcourses');
+Route::get('section/dete/{section_id}',[SectionsController::class,'deleteSection'])->name('section.delete');
 
 Route::get('pages',[PageController::class,'getPages']);
 Route::post('pages/addsection/{pageid}',[PageController::class,'addSection'])->name('page.addsection');
