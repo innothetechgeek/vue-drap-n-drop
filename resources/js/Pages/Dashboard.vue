@@ -14,17 +14,40 @@ export default {
            activePage: 1,
            page_sections: [],
            showAddCourseForm: false,
-           showAddNewSectionForm: false
+           showAddNewSectionForm: false,
+           loader: null,
         })
     },
 
     mounted(){
+
         this.getPages();
         this.getPageSections();
+        this.showLoader();
+        this.hideLoader();
     },
 
     methods:{
+        showLoader(){
 
+            this.loader = this.$loading.show({
+                    // Optional parameters
+                    container: this.fullPage ? null : this.$refs.formContainer,
+                    canCancel: true,
+                    onCancel: this.onCancel,
+                    loader: 'dots',
+                    color: '#615D5D'
+            });
+
+               // simulate AJAX
+          
+        },
+        hideLoader(){
+
+            setTimeout(() => {
+                this.loader.hide()
+            }, 5000)
+        },
         getPages(){
 
             axios.get('pages').then(response =>{
@@ -123,9 +146,23 @@ export default {
 
 <style scoped>
 
+    ::v-deep  .mu-plus-icon{
+
+        color: #FCB322 !important;
+        font-size: 3rem !important;
+        flex: 1;
+
+    }
+
     .section-footer{
         display:flex;
         justify-content: flex-end;
+    }
+
+    .btn-success{
+        background-color: #ff6c60;
+        color:#fff;
+        border-color: #ff6c60;
     }
 
     .card {

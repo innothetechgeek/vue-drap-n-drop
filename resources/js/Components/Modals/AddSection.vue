@@ -85,7 +85,7 @@ const toggleAddSectionModal = () => {
                         </select>
                     </div>
                     <div class="form-group mb-2">
-                        <button @click="submit()" class="form-control btn btn-primary rounded submit px-3">Add Section</button>
+                        <button @click="submit()" class="btn btn-success rounded submit px-3">Add Section</button>
                     </div>
                 </form>
             </div>
@@ -98,6 +98,14 @@ const toggleAddSectionModal = () => {
   #customModal{
     display:flex;
     justify-content:center;
+  }
+
+  .btn-success{
+        background-color: #ff6c60 !important;
+        color:#fff  !important;
+        border-color: #ff6c60  !important;
+        width:100%;
+        height: 52px;
   }
   ::v-deep .modal-dialog{
         position: fixed;

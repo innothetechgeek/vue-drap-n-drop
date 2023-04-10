@@ -25,7 +25,7 @@
             <!-- and so on... -->
         </tbody>
     </table>
-    <AddCourseModal  @closeModal="closeModal" :sectionId="props.sectionId" v-if="showAddCourseForm" />
+    <AddCourseModal @getCourses="getCourses"  @closeModal="closeModal" :sectionId="props.sectionId" v-if="showAddCourseForm" />
     <button @click="AddCourse" class="btn btn-primary">Add Course</button>
 
 </template>
@@ -52,6 +52,7 @@
             courses.value = response.data;
             console.log(courses);
         })
+
     }
 
     onMounted(() => {

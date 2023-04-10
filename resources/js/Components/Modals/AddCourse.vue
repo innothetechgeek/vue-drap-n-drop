@@ -1,11 +1,17 @@
 <script setup>
     import { useForm } from '@inertiajs/vue3';
+    import {ref, inject} from 'vue'
+    import {useLoading} from 'vue-loading-overlay'
 
     const props = defineProps({
         sectionId: Number
     })
 
-    const emits = defineEmits(["closeModal"]);
+    const $loading = useLoading({
+        // options
+    });
+
+    const emits = defineEmits(["closeModal","getCourses"]);
 
     const form = useForm({
 
@@ -27,13 +33,29 @@
 
     const submit = () => {
 
-        form.post(route('section.addcourse',{'section_id': props.sectionId}));
+
+        const loader = $loading.show({
+            loader: 'dots',
+        });
+
+        form.post(route('section.addcourse',{'section_id': props.sectionId}), {
+
+            onFinish: () => {getCourses() ,loader.hide(), closeModal();}
+
+        });
+    
 
     }
 
     const closeModal = () =>{
 
         emits("closeModal");
+
+    }
+
+    const getCourses = () => {
+
+        emits('getCourses');
 
     }
 
@@ -71,7 +93,7 @@
                         <input type="file" @change="handleUpload($event)" class="form-control" id="inputEmail3">
                     </div>
                     <div class="form-group mb-2">
-                        <button @click="submit(),getPageSections()" class="form-control btn btn-primary rounded submit px-3">Add Course</button>
+                        <button @click="submit()" class="form-control btn btn-success rounded submit px-3">Add Course</button>
                     </div>
                 </form>
             </div>
@@ -80,6 +102,13 @@
 </template>
 
 <style scoped>
+
+
+ .btn-success{
+        background-color: #ff6c60;
+        color:#fff;
+        border-color: #ff6c60;
+  }
 
   #customModal{
     display:flex;
