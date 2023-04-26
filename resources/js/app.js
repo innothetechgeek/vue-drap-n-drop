@@ -1,15 +1,21 @@
 import './bootstrap';
 
-import '../css/bootstrap.min.css';
-import '../css/style.css';
+import 'bootstrap/dist/css/bootstrap.css'
 
-
+//primevue styles
+import "primevue/resources/themes/lara-light-indigo/theme.css";     
+    
+//core - prime vue
+import "primevue/resources/primevue.min.css";
 
 import { createApp, h } from 'vue';
 import { createInertiaApp } from '@inertiajs/vue3';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { ZiggyVue } from '../../vendor/tightenco/ziggy/dist/vue.m';
 import {LoadingPlugin} from 'vue-loading-overlay';
+import PrimeVue from 'primevue/config';
+import ConfirmationService from 'primevue/confirmationservice';
+import ConfirmDialog from 'primevue/confirmdialog';
 
 /* import the fontawesome core */
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -19,14 +25,18 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 /* import specific icons */
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { faTrash } from '@fortawesome/free-solid-svg-icons'
+import { faEye } from '@fortawesome/free-solid-svg-icons'
 import { faPencil } from '@fortawesome/free-solid-svg-icons'
-import 'vue-loading-overlay/dist/css/index.css';
+import { faTimes } from '@fortawesome/free-solid-svg-icons'
+
 
 
 /* add icons to the library */
 library.add(faPlus)
 library.add(faTrash)
 library.add(faPencil)
+library.add(faEye)
+library.add(faTimes)
 
 const appName = window.document.getElementsByTagName('title')[0]?.innerText || 'Laravel';
 
@@ -37,7 +47,10 @@ createInertiaApp({
         return createApp({ render: () => h(App, props) })
             .use(plugin)
             .component('font-awesome-icon', FontAwesomeIcon)
+            .component('ConfirmDialog',ConfirmDialog)
             .use(LoadingPlugin)
+            .use(PrimeVue)
+            .use(ConfirmationService)
             .use(ZiggyVue, Ziggy)
             .mount(el);
     },

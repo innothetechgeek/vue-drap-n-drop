@@ -26739,7 +26739,8 @@ body.text-sm .input-group-text {
   border-top: 3px solid #dee2e6;
 }
 
-.card-primary.card-outline-tabs > .card-header a.active,
+.card-primary.card-outline-tabs > .card-
+ a.active,
 .card-primary.card-outline-tabs > .card-header a.active:hover {
   border-top: 3px solid #007bff;
 }

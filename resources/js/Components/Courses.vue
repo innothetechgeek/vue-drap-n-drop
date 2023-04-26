@@ -1,6 +1,6 @@
 <template>
         <table class="styled-table">
-        <thead>
+        <thead v-if="courses.length">
             <tr>
                 <th>Tile</th>
                 <th>Price</th>
@@ -26,7 +26,9 @@
         </tbody>
     </table>
     <AddCourseModal @getCourses="getCourses"  @closeModal="closeModal" :sectionId="props.sectionId" v-if="showAddCourseForm" />
-    <button @click="AddCourse" class="btn btn-primary">Add Course</button>
+    <button @click="AddCourse" class="btn btn-secondary">
+        <font-awesome-icon icon="fa-solid fa-plus" /> Add Course
+    </button>
 
 </template>
 
@@ -72,6 +74,12 @@
 </script>
 
 <style scoped>
+
+.btn-secondary{
+    background-color:#FCB322;
+    color:#fff;
+    border-color: #FCB322;
+}
 
 .fa-trash{
     color:#FF6C60;

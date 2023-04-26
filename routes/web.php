@@ -19,7 +19,7 @@ use App\Http\Controllers\PageController;
 */
 
 Route::get('/', function () {
-    return Inertia::render('Welcome', [
+    return Inertia::render('Frontend/Home', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
         'laravelVersion' => Application::VERSION,
@@ -42,6 +42,8 @@ Route::get('sections/slides/{section_id}',[SectionsController::class,'getSection
 Route::post('sections/addcourse/{section_id}',[SectionsController::class,'addCourse'])->name('section.addcourse');
 Route::get('section/courses/{section_id}',[SectionsController::class,'getCourses'])->name('section.getcourses');
 Route::get('section/dete/{section_id}',[SectionsController::class,'deleteSection'])->name('section.delete');
+
+Route::get('page/liveedit/{section_id}',[SectionsController::class,'liveEdit']);
 
 Route::get('pages',[PageController::class,'getPages']);
 Route::post('pages/addsection/{pageid}',[PageController::class,'addSection'])->name('page.addsection');

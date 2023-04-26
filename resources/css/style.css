@@ -9,11 +9,15 @@ h1, h2, h3 {margin: 0;}
 ul, ol {margin: 0;}
 p {margin: 0;}
 
+h1{
+    color:green !important;
+}
+
 html, body{
 	font-family: 'Roboto', sans-serif;
     font-size: 100%;
     overflow-x: hidden;
-    background: url(../images/bg.jpg) no-repeat 0px 0px;
+    background: url(images/bg.jpg) no-repeat 0px 0px;
 	background-size:cover;
 }
 body a{
@@ -225,6 +229,21 @@ ul.sidebar-menu li a.active i {
     -o-transition:all .3s ease-in-out;
     transition:all .3s ease-in-out;
 }
+
+.modal-dialog{
+    background:#ffff !important;
+  }
+  .p-button{
+    background-color: #FCB322;
+    color: #fff;
+    border:none;
+  }
+  .p-button:active{
+    background-color: #FCB322;
+  }
+  .p-button:focus{
+    box-shadow: none;
+  }
 .merge-header {
     margin-right:240px;
 }
@@ -246,7 +265,7 @@ ul.sidebar-menu li a.active i {
     position:relative;
 }
 a.logo {
-    font-size:32px;
+    font-size:18px;
     color:#fff;
     float:left;
     margin:20px 0 0 25px;
@@ -574,9 +593,10 @@ ul.top-menu>li>a:hover,ul.top-menu>li>a:focus {
     transition: all .3s ease;
     border: 1px solid #8b5c7e;
     box-shadow: none;
-    background: #8b5c7e url(../images/search-icon.png) no-repeat 10px 8px;
+    background: #8b5c7e url(images/search-icon.png) no-repeat 10px 8px;
     padding: 0 5px 0 30px;
     color: #fff;
+    height:34px;
     border-radius: 100px;
     -webkit-border-radius: 100px;
 	cursor:pointer;
@@ -2147,9 +2167,15 @@ ul.inbox-pagination li {
     background:#00A8B3;
     color:#fff;
 }
+
 .btn-send:hover {
     background:#009da7;
 }
+
+.btn-secondary{
+    border:none;
+}
+
 .modal-header h4.modal-title {
     font-weight:300;
     font-family:'Open Sans',sans-serif;

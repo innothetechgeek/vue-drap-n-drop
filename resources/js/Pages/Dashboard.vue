@@ -82,7 +82,7 @@ export default {
         AuthenticatedLayout,
         Head,
         Accodion,
-        AddNewSectionModal,
+        AddNewSectionModal        
     }
 }
 
@@ -90,6 +90,7 @@ export default {
 
 <template>
     <Head title="Dashboard"  />
+    <ConfirmDialog id="confirm" />
 
     <AuthenticatedLayout :key="showAddCourseForm">
         <div class="content-wrapper">
@@ -101,20 +102,12 @@ export default {
                             <div class="card page-selector">
                                 <div class="card-header border-0">
                                     <h3 class="card-title">Select a Page</h3>
-                                    <div class="card-tools">
-                                    <a href="#" class="btn btn-tool btn-sm">
-                                        <i class="fas fa-download"></i>
-                                    </a>
-                                    <a href="#" class="btn btn-tool btn-sm">
-                                        <i class="fas fa-bars"></i>
-                                    </a>
-                                    </div>
                                 </div>
                                 <div class="card-body table-responsive">
                                     <div class="row">
                                         <div class="col-sm-12">
                                             <div class="form-group p-card-body">
-                                                {{ pages.length }}
+
                                             <label>Select</label>
                                                 <select @change="getPageSections()" v-model="activePage" class="form-control" >
                                                     <option :value="page.id" v-for="(page,index) in pages" :key="page.id">{{ page.name }}</option>
@@ -130,10 +123,12 @@ export default {
                                 <Accodion @getPageSections="getPageSections"  v-for="(section,index) in page_sections" :key="section.id" :section="section" :section_id="section.id" :contentType="section.content_type"  isActive="active"> </Accodion>
                                 
                                 <div class="section-footer">
-                                    <button @click="toggleAddSectionModal"  data-toggle="modal" data-target="#exampleModal" class="btn btn-success">Add New Course</button>
+                                    <button @click="toggleAddSectionModal"  data-toggle="modal" data-target="#exampleModal" class="btn btn-success">Add New Section</button>
                                 </div>
 
                                 <AddNewSectionModal @getPageSections="getPageSections" v-if="showAddNewSectionForm" :pageId="activePage" @toggleAddSectionModal="toggleAddSectionModal"  /> 
+
+                                <StaticSectionManager />
 
                             </div>
                         </div>
@@ -151,7 +146,13 @@ export default {
         color: #FCB322 !important;
         font-size: 3rem !important;
         flex: 1;
+    }
 
+   
+
+    ::v-deep .p-button{
+
+        background:cornflowerblue !important;
     }
 
     .section-footer{

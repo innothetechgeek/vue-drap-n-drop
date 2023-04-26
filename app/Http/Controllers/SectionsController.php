@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 Use App\Models\Slide;
 use App\Models\Course;
 Use App\Models\PageSection;
+use Inertia\Inertia;
 
 class SectionsController extends Controller
 {
@@ -95,5 +96,12 @@ class SectionsController extends Controller
       //  return redirect()->route('dashboard');
 
     }
+
+    public function liveEdit(){
+
+        return Inertia::render('Frontend/LiveEditor');
+
+    }
+
 
 }

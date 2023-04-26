@@ -79,7 +79,7 @@ const toggleAddSectionModal = () => {
                     <div class="form-group mb-2">
                         <label for="name">Content Type</label>
                         <select v-model="data.contentType" class="form-control">
-                            <option>Static Content</option>
+                            <option>static content</option>
                             <option>Courses</option>
                             <option>Slider</option>
                         </select>

@@ -7,22 +7,35 @@
         </button>
         <div :id="'panel_' + section_id"  class="panel">  
 
-            <Uploader v-if="saved.length != 0 && contentType == 'slider'"
-                :media="saved"   
-                server="sections/uploadsliderimage"
-                location="storage/sliders/1/slides"
-                class="uploader"
-            />
+            <div class="panel-content">
+                <Uploader v-if="saved.length != 0 && contentType == 'slider'"
+                    :media="saved"   
+                    server="sections/uploadsliderimage"
+                    location="storage/sliders/1/slides"
+                    class="uploader"
+                />
 
-            <Courses :sectionId="section_id" v-if="contentType == 'courses'"/>
+                <Courses :sectionId="section_id" v-if="contentType == 'courses'"/>
+
+                <StaticSectionManager v-if="contentType == 'static content'" />
+
+            </div>
             
             <div class="panel-footer">
                 <div class="right-col">
 
                 </div>
                 <div class="left-col">
-                    <span @click="deleteSection(),getPageSections()" class="delete-section">Delete section</span>&nbsp;&nbsp;
-                    <span class="delete-section">Deactivate section</span>
+                   
+                    <span  @click="showConfirmationDialog(),getPageSections()" class="cursor-pointer delete-section">
+                        <font-awesome-icon class="fa-trash" icon="fa-solid fa-trash" />
+                        Delete section
+                    </span>
+                    &nbsp;&nbsp;
+                    <span class="delete-section cursor-pointer"> 
+                        <font-awesome-icon class="fa-times" icon="fa-solid fa-times" />
+                        Deactivate section
+                   </span>
                 </div>
             </div>
 
@@ -34,12 +47,15 @@
 <script>
 import Uploader from "vue-media-upload";
 import Courses from '@/Components/Courses.vue';
+import StaticSectionManager from '@/Components/StaticSectionManager.vue';
+import { useConfirm } from "primevue/useconfirm";
 
-    export default {
+export default {
 
         components: {
             Uploader,
-            Courses
+            Courses,
+            StaticSectionManager
         },
 
         mounted(){
@@ -54,6 +70,7 @@ import Courses from '@/Components/Courses.vue';
                 ],
                 colapseIcon: 'plus',
                 showAddCourseForm: false,
+                confirm: useConfirm()
               
             }
         },
@@ -113,6 +130,17 @@ import Courses from '@/Components/Courses.vue';
                     console.log('error : ', error);
                 });
 
+            },
+            showConfirmationDialog(){
+
+                this.confirm.require({
+                    message: 'Are you sure you want to proceed?',
+                    header: 'Confirmation',
+                    accept: () => {
+                        this.deleteSection();
+                    },
+                });
+
             }
         }
     }
@@ -130,6 +158,22 @@ import Courses from '@/Components/Courses.vue';
 :deep(.gallery[data-v-446c7bb4]) {
    border:none !important;
    border:none !important;
+}
+
+.p-button{
+    background:red;
+}
+
+.cursor-pointer{
+    cursor: pointer;
+}
+
+.fa-trash{
+   color:#ff6c60;
+}
+
+.fa-times{
+    color: #F0BCB4;
 }
 
 .section-footer button{

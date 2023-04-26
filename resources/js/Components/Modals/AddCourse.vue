@@ -93,7 +93,9 @@
                         <input type="file" @change="handleUpload($event)" class="form-control" id="inputEmail3">
                     </div>
                     <div class="form-group mb-2">
-                        <button @click="submit()" class="form-control btn btn-success rounded submit px-3">Add Course</button>
+                        <button @click="submit()" class="form-control btn btn-secondary rounded submit px-3">
+                            <font-awesome-icon icon="fa-solid fa-plus" /> Add Course
+                        </button>
                     </div>
                 </form>
             </div>
@@ -109,6 +111,12 @@
         color:#fff;
         border-color: #ff6c60;
   }
+
+  .btn-secondary{
+        background-color:#FCB322 !important;
+        color:#fff !important;
+        border-color:#FCB322;
+    }
 
   #customModal{
     display:flex;
