@@ -17,7 +17,7 @@
 
                 <Courses :sectionId="section_id" v-if="contentType == 'courses'"/>
 
-                <StaticSectionManager v-if="contentType == 'static content'" />
+                <StaticSectionManager :section="section" v-if="contentType == 'static content'" />
 
             </div>
             
@@ -52,6 +52,7 @@ import { useConfirm } from "primevue/useconfirm";
 
 export default {
 
+    emits: ['showToast','getPageSections'],
         components: {
             Uploader,
             Courses,
@@ -75,7 +76,6 @@ export default {
             }
         },
         props: ['isActive','section_id','section',"contentType"],
-        emits: ['getPageSections'],
          methods:{
 
             toggleAccordion(section_id){
@@ -125,6 +125,8 @@ export default {
             deleteSection(){
                 
                 axios.get(route('section.delete',{id: this.section_id})).then(response => {
+
+                    this.$emit('showToast','Section Deleted Successfully');
 
                 }).catch(function (error) {
                     console.log('error : ', error);

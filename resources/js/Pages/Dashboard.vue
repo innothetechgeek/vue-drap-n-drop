@@ -4,6 +4,7 @@ import { Head } from '@inertiajs/vue3';
 import Accodion from '@/Components/Accodion.vue'
 import { reactive, ref,onMounted,onActivated} from 'vue';
 import AddNewSectionModal from '@/Components/Modals/AddSection.vue';
+import { useToast } from 'primevue/usetoast';
 
 export default {
 
@@ -16,6 +17,7 @@ export default {
            showAddCourseForm: false,
            showAddNewSectionForm: false,
            loader: null,
+           toast: useToast(),
         })
     },
 
@@ -75,6 +77,10 @@ export default {
             this.showAddNewSectionForm = !this.showAddNewSectionForm;
            
         },
+        showToast(message){
+
+            this.toast.add({ severity: 'success',summary: 'Info', detail:message,life: 4000 });
+        }
         
     },
 
@@ -120,15 +126,17 @@ export default {
                         </div>
                         <div class="col-sm-9" >
                             <div class="card page-sections">
-                                <Accodion @getPageSections="getPageSections"  v-for="(section,index) in page_sections" :key="section.id" :section="section" :section_id="section.id" :contentType="section.content_type"  isActive="active"> </Accodion>
+                                <Accodion @showToast="showToast" @getPageSections="getPageSections"  v-for="(section,index) in page_sections" :key="section.id" :section="section" :section_id="section.id" :contentType="section.content_type"  isActive="active"> </Accodion>
                                 
                                 <div class="section-footer">
                                     <button @click="toggleAddSectionModal"  data-toggle="modal" data-target="#exampleModal" class="btn btn-success">Add New Section</button>
                                 </div>
 
-                                <AddNewSectionModal @getPageSections="getPageSections" v-if="showAddNewSectionForm" :pageId="activePage" @toggleAddSectionModal="toggleAddSectionModal"  /> 
+                                <AddNewSectionModal @showToast="showToast" @getPageSections="getPageSections" v-if="showAddNewSectionForm" :pageId="activePage" @toggleAddSectionModal="toggleAddSectionModal"  /> 
 
-                                <StaticSectionManager />
+                               
+
+                                <Toast position="bottom-left" />
 
                             </div>
                         </div>

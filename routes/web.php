@@ -18,23 +18,19 @@ use App\Http\Controllers\PageController;
 |
 */
 
-Route::get('/', function () {
-    return Inertia::render('Frontend/Home', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
-});
+Route::get('/', [PageController::class,'pageResolver']);
+Route::get('contact', [PageController::class,'pageResolver']);
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
+
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
 });
 
 Route::post('sections/uploadsliderimage',[SectionsController::class,'uploadSliderImages'])->name('upload-slider-images');
@@ -44,6 +40,7 @@ Route::get('section/courses/{section_id}',[SectionsController::class,'getCourses
 Route::get('section/dete/{section_id}',[SectionsController::class,'deleteSection'])->name('section.delete');
 
 Route::get('page/liveedit/{section_id}',[SectionsController::class,'liveEdit']);
+Route::post('section/save',[SectionsController::class,'saveSection'])->name('section.save');
 
 Route::get('pages',[PageController::class,'getPages']);
 Route::post('pages/addsection/{pageid}',[PageController::class,'addSection'])->name('page.addsection');

@@ -12,12 +12,14 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { faListCheck } from '@fortawesome/free-solid-svg-icons'
 import { faEnvelope} from '@fortawesome/free-solid-svg-icons'
 import { faBell } from '@fortawesome/free-solid-svg-icons'
+import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons'
 
 
 /* add icons to the library */
 library.add(faListCheck)
 library.add(faEnvelope)
 library.add(faBell)
+library.add(faRightFromBracket);
 
 
 
@@ -107,17 +109,18 @@ const showingNavigationDropdown = ref(false);
         <!-- sidebar menu start-->
         <div class="leftside-navigation">
             <ul class="sidebar-menu" id="nav-accordion">
-              
                 <li>
                     <a href="login.html">
-                        <i class="fa fa-user"></i>
-                        <span>Login Page</span>
+                        <font-awesome-icon icon="fa-solid fa-book" /> &nbsp;
+                        <span>Pages</span>
+                        <span class="dcjq-icon"></span>
                     </a>
                 </li>
                 <li>
                     <a href="login.html">
-                        <i class="fa fa-user"></i>
-                        <span>Pages</span>
+                        <font-awesome-icon icon="fa-solid fa-right-from-bracket" /> &nbsp;
+                        <span>Log out</span>
+                        <span class="dcjq-icon"></span>
                     </a>
                 </li>
             </ul>

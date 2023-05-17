@@ -67,7 +67,7 @@ body a:hover{
     height:17px;
     width:17px;
     display:inline-block;
-    background:url(../images/nav-expand.png) no-repeat top;
+    background:url(images/nav-expand.png) no-repeat top;
     border-radius:3px;
     -moz-border-radius:3px;
     -webkit-border-radius:3px;
@@ -286,6 +286,10 @@ a.logo span {
     float:left;
     margin-top:23px;
     margin-left:25px;
+}
+
+.p-toast{
+    z-index: 100000;
 }
 ul.top-menu {
     margin-right:15px;
@@ -3169,4 +3173,8 @@ div#graph1, div#graph4, div#graph5, div#graph6, div#graph7, div#graph8, div#grap
 .chart_agile_bottom {
     padding: 0;
 }
+}
+
+.wrapper{
+    min-height: 100vh;
 }

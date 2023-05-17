@@ -97,9 +97,36 @@ class SectionsController extends Controller
 
     }
 
-    public function liveEdit(){
+    public function liveEdit($section_id){
 
-        return Inertia::render('Frontend/LiveEditor');
+        $section = PageSection::find($section_id);
+
+        $content = $section ? $section->content : '';
+        $cssFromDatabase =  $section ? $section->css : '';
+
+        $components = config('liveEditorComponents');
+
+
+        return Inertia::render('Frontend/LiveEditor',
+                    [   'components'=>$components,'content'=>$content,
+                        'section_id'=>$section_id,
+                        'cssFromDatabase'=> $cssFromDatabase,
+                    ]);
+
+    }
+
+    public function saveSection(Request $request){
+
+        $section_id = $request->sectionId;
+        $css = $request->contentCss;
+
+        $section = PageSection::find($section_id);
+        $section->content = $request->updatedContent;
+        $section->css = $request->css;
+        $section->save();
+
+        return 'success!!!';
+
 
     }
 

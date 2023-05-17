@@ -19034,6 +19034,14 @@ header.nav-fixed {
   .navbar-nav .dropdown-menu {
     text-align: center;
   }
+  header{
+    padding: 0;
+    background-color: #ffffff !important;
+    height: 80px;
+    border-bottom: none;
+    box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.05);
+    z-index: 100 !important;
+}
 
   .navbar-expand-lg .navbar-nav .nav-link {
     display: inline-block;
@@ -20958,3 +20966,24 @@ button.owl-next {
 }
 
 /* //contact */
+
+header{
+  background-color: #ffffff;
+
+}
+
+.navbar-expand-lg .navbar-nav .nav-link {
+  color: #060606 !important
+}
+
+.nav-fixed .navbar .navbar-brand {
+
+  color: #060606 !important
+
+}
+
+.navbar .navbar-brand {
+
+  color: #060606 !important
+
+}

@@ -3,7 +3,7 @@
 import { useForm } from "@inertiajs/vue3";
 import { defineEmits } from 'vue';
 
-const emits = defineEmits(["toggleAddSectionModal","getPageSections"]);
+const emits = defineEmits(["toggleAddSectionModal","getPageSections","showToast"]);
 
 let data = {
     
@@ -36,19 +36,14 @@ const getPageSections = () => {
 }
 
 const submit = async() => {
-    
-   
-   // emits("getPageSections");
 
    const response = await axios.post(route('page.addsection',{id:props.pageId}),data);
-  
 
-       //getPageSections();
-       emits('getPageSections');
-       emits("toggleAddSectionModal");
-        //const locaEemits = defineEmits(["toggleAddSectionModal","getPageSections"]);
-        //locaEemits("getPageSections");
-        //alert('hello world');
+    emits('getPageSections');
+    emits("toggleAddSectionModal");
+
+    emits('showToast','Section Added Successfully');
+      
 
   
 }
